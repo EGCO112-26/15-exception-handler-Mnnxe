@@ -36,9 +36,9 @@ do{
 		double* myarray;
 		for(i=0;i<10;i++){
 			cout<<"Allocate Memory..."<<i<<endl;
-			myarray = new double[5000000000000000];
+			myarray = new double[50000000000000];
 		}
-		a = 0;
+		a=0;
 	}
 	/*
 	catch(const char* error){
@@ -55,11 +55,17 @@ do{
 		
 	}
 	*/
-	
+
 	catch(exception &e){
 		cout<<e.what()<<endl;
-		a=1;
+		//a = 1;
+		if (typeid(e) == typeid(bad_alloc)) {
+                a = 0; 
+            } else {
+                a = 1; // ถ้าเป็นอย่างอื่น (div0, fail, runtime_error) ให้รันต่อ
+            }
 	}
+
 
 }while(a);
 	return 0;
